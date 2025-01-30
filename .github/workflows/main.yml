@@ -24,3 +24,72 @@ jobs:
 
       - name: run flake
         run: python -m flake8 --extend-exclude .venv,migrations backend
+
+  push_backend_image:
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Push backend to DockerHub
+        uses: docker/build-push-action@v4
+        with:
+          context: ./backend/
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/kittygram_backend:latest
+
+  push_frontend_image:
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Push frontend to DockerHub
+        uses: docker/build-push-action@v4
+        with:
+          context: ./frontend/
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/kittygram_frontend:latest
+
+  push_gateway_image:
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Push gateway to DockerHub
+        uses: docker/build-push-action@v4
+        with:
+          context: ./nginx/
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/kittygram_gateway:latest
+
