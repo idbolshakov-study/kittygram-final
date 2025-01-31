@@ -122,8 +122,6 @@ jobs:
             docker compose -f /opt/kittygram/docker-compose.production.yml pull
             docker compose -f /opt/kittygram/docker-compose.production.yml down || true
             docker compose -f /opt/kittygram/docker-compose.production.yml up -d
-            docker compose -f /opt/kittygram/docker-compose.production.yml exec backend python manage.py migrate
-            docker compose -f /opt/kittygram/docker-compose.production.yml exec backend python manage.py collectstatic --no-input
 
   tests:
     runs-on: ubuntu-latest

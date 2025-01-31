@@ -2,8 +2,8 @@ services:
   backend:
     restart: always
     container_name: backend
-    image: idbolshakovstudy/kittygram_gateway:latest
-    env_file: .env
+    image: idbolshakovstudy/kittygram_backend:latest
+    env_file: /opt/kittygram/.env
     depends_on:
       - postgres
     volumes:
@@ -13,8 +13,8 @@ services:
   frontend:
     restart: always
     container_name: frontend
-    env_file: .env
-    image: idbolshakovstudy/kittygram_gateway:latest
+    env_file: /opt/kittygram/.env
+    image: idbolshakovstudy/kittygram_frontend:latest
     volumes:
       - kittygram_static:/app/build/
 
@@ -35,7 +35,7 @@ services:
     restart: always
     container_name: postgres
     image: postgres:13.10
-    env_file: .env
+    env_file: /opt/kittygram/.env
     volumes:
       - kittygram_pg_data:/var/lib/postgresql/data
 
