@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get(
         default=get_random_secret_key()
         )
 
-DEBUG = os.environ.get("DEBUG", "false") in {"true", "True", "1"}
+DEBUG = os.environ.get("DEBUG", False) in ("true", "True", "1")
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
@@ -67,8 +67,8 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'postgres',
-        'PORT': '5432'
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT')
     }
 }
 
