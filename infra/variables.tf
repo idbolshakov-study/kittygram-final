@@ -40,3 +40,48 @@ variable "folder_id" {
   description = "Folder ID"
   type = string
 }
+
+variable "platform_id" {
+  type = string
+  default = "standard-v1"
+}
+
+variable "zone" {
+  type = string
+  default = "ru-central1-a"
+}
+
+variable "disk_type" {
+  type = string
+  default = "network-hdd"
+}
+
+variable "disk_size" {
+  type = number
+  default = 20
+}
+
+variable "cores" {
+  type = string
+  default = "2"
+}
+
+variable "memory" {
+  type = string
+  default = "4"
+}
+
+variable "core_fraction" {
+  type = string
+  default = "5"
+}
+
+variable "nat" {
+  type = bool
+  default = true
+}
+
+variable "image_family" {
+  type = string
+  default = "ubuntu-2404-lts-oslogin"
+}
