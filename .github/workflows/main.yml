@@ -110,7 +110,7 @@ jobs:
           username: ${{ secrets.PRODUCTION_USER }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
           source: "docker-compose.production.yml"
-          target: "/opt/kittygram"
+          target: "/home/user/kittygram"
 
       - name: Pull and restart containers
         uses: appleboy/ssh-action@master
@@ -119,11 +119,11 @@ jobs:
           username: ${{ secrets.PRODUCTION_USER }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
           script: |
-            docker compose -f /opt/kittygram/docker-compose.production.yml pull
-            docker compose -f /opt/kittygram/docker-compose.production.yml down || true
-            docker compose -f /opt/kittygram/docker-compose.production.yml up -d
-            docker compose -f /opt/kittygram/docker-compose.production.yml exec backend python manage.py migrate
-            docker compose -f /opt/kittygram/docker-compose.production.yml exec backend python manage.py collectstatic --no-input
+            docker compose -f /home/user/kittygram/docker-compose.production.yml pull
+            docker compose -f /home/user/kittygram/docker-compose.production.yml down || true
+            docker compose -f /home/user/kittygram/docker-compose.production.yml up -d
+            docker compose -f /home/user/kittygram/docker-compose.production.yml exec backend python manage.py migrate
+            docker compose -f /home/user/kittygram/docker-compose.production.yml exec backend python manage.py collectstatic --no-input
 
   tests:
     runs-on: ubuntu-latest
