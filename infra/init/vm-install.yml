@@ -8,9 +8,10 @@
 	    - "${SSH_KEY}"
 	write_files:
 	  - content: |
-		    #!/bin/bash
-		  
-		    # Опишите установку Docker
+            #!/bin/bash
+            apt-get update
+            apt-get install -y docker.io docker-compose
+            usermod -aG docker user
 	    path: "/root/vm_prep.sh"
 	    permissions: "0740"
 	
